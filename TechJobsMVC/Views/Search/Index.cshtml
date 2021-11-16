@@ -1,56 +1,50 @@
 ﻿<div class="container body-content">
 
-	<h1>@ViewBag.title</h1>
+    <h1>@ViewBag.title</h1>
 
-	<form action="/search/results" method="post">
-		<h2>Search by:</h2>
+    <form action="/search/results" method="post">
+        <h2>Search by:</h2>
 
-		<p>
-			@foreach (var column in ViewBag.columns)
+        <p>
+            @foreach (var column in ViewBag.columns)
 			{
-				<span>
-					<input type="radio" name="searchType" id="@column.Key" value="@column.Key" @{
-					if (column.Key == ViewBag.searchType) {
-					<text>checked</text>
-}
-} />
-					<label for="@column.Key">@column.Value</label>
-				</span>
+            <span>
+                <input type="radio" name="searchType" id="@column.Key" value="@column.Key" @{if (column.Key == ViewBag.searchType) { <text> checked</text>}} />
+                <label for="@column.Key">@column.Value</label>
+            </span>
 			}
+        </p>
 
-		</p>
+        <p>
+            <label for="searchTerm">Keyword:</label>
+            <input type="text" name="searchTerm" id="searchTerm" />
+        </p>
 
-		<p>
-			<label for="searchTerm">Keyword:</label>
-			<input type="text" name="searchTerm" id="searchTerm" />
-		</p>
+        <input type="submit" value="Search" />
+    </form>
 
-		<input type="submit" value="Search" />
-	</form>
+    <hr />
 
-	<hr />
-
-	@{
+    @{
 		if (ViewBag.jobs != null)
 		{
-			<table class="job-listing">
-				@foreach (var job in ViewBag.jobs)
+        <table class="job-listing">
+            @foreach (var job in ViewBag.jobs)
 				{
-					<tr>
-						<td>
-							<p>ID: @job.Id</p>
-							<p>Name: @job.Name</p>
-							<p>Employer: <a asp-controller="List" asp-action="Jobs" asp-route-column="employer" asp-route-value="@job.Employer">@job.Employer</a></p>
-							<p>Location: <a asp-controller="List" asp-action="Jobs" asp-route-column="location" asp-route-value="@job.Location">@job.Location</a></p>
-							<p>Position Type: <a asp-controller="List" asp-action="Jobs" asp-route-column="positionType" asp-route-value="@job.PositionType">@job.PositionType</a></p>
-							<p>Skill: <a asp-controller="List" asp-action="Jobs" asp-route-column="coreCompetency" asp-route-value="@job.CoreCompetency">@job.CoreCompetency</a></p>
-
-						</td>
-					</tr>
+                <tr>
+                    <td>
+                        <p>ID: @job.Id</p>
+                        <p>Name: @job.Name</p>
+                        <p>Employer: <a asp-controller="List" asp-action="Jobs" asp-route-column="employer" asp-route-value="@job.Employer">@job.Employer</a></p>
+                        <p>Location: <a asp-controller="List" asp-action="Jobs" asp-route-column="location" asp-route-value="@job.Location">@job.Location</a></p>
+                        <p>Position Type: <a asp-controller="List" asp-action="Jobs" asp-route-column="positionType" asp-route-value="@job.PositionType">@job.PositionType</a></p>
+                        <p>Skill: <a asp-controller="List" asp-action="Jobs" asp-route-column="coreCompetency" asp-route-value="@job.CoreCompetency">@job.CoreCompetency</a></p>
+                    </td>
+                </tr>
 				}
-			</table>
+        </table>
 		}
-	}
+    }
 
 
 </div>
